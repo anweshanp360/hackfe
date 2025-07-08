@@ -1,39 +1,62 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
-# dependencies
+# Node modules
 node_modules/
+.yarn/                  # Yarn v2+ cache
+.pnp/
+.pnp.js
 
-# Expo
-.expo/
-dist/
-web-build/
-expo-env.d.ts
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
-# Native
-.kotlin/
-*.orig.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-
-# Metro
-.metro-health-check*
-
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
-
-# macOS
+# Mac OS specific files
 .DS_Store
-*.pem
 
-# local env files
-.env*.local
+# VS Code specific files (optional - uncomment if you want to ignore them)
+# .vscode/
 
-# typescript
-*.tsbuildinfo
+# Environment variables
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
 
-app-example
+# Expo/React Native specific files and folders
+# These are generated during builds or by Expo/Metro
+.expo/                  # Expo build artifacts and cache
+web-build/              # If you're building for web using Expo
+android/build/          # Android build output
+ios/build/              # iOS build output
+ios/Pods/               # CocoaPods dependencies (re-generated with 'pod install')
+ios/.symlinks/         # iOS symlinks
+ios/DerivedData/        # Xcode derived data
+ios/*.xcworkspace       # Xcode workspace (sometimes needs to be ignored if issues arise, but usually committed)
+ios/*.xcodeproj/project.xcworkspace/ # More specific Xcode workspace parts
+ios/*.xcodeproj/xcuserdata/ # Xcode user-specific data
+ios/*.xcodeproj/project.xcconfig    # Xcode user-specific config
+# For bare React Native projects:
+android/.gradle/
+android/app/build/
+android/.idea/          # Android Studio project files
+android/local.properties # Local Android SDK path
+
+# Metro Bundler cache
+.react-native/
+.expo-shared/
+
+# TypeScript/JavaScript build outputs (if you're transpiling)
+# Usually, you commit your source .ts/.js files and let the build step generate outputs.
+# If you have a 'dist' or 'build' folder for compiled JS, add it.
+# dist/
+# build/
+
+# Native app bundle files (often large and generated)
+*.apk                   # Android APKs
+*.ipa                   # iOS IPAs
+
+# Misc
+*.iml                   # IntelliJ IDEA files
+.eslintcache            # ESLint cache file
+.jest/cache/            # Jest test cache
