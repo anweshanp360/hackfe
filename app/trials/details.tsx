@@ -9,7 +9,7 @@ import {
   Alert,
 } from "react-native";
 import axios from "axios";
-import styles from "./TrialDetailScreen.styles";
+import tw from "twrnc"; // Tailwind for React Native
 
 const TrialForm = () => {
   const [formData, setFormData] = useState({
@@ -58,8 +58,11 @@ const TrialForm = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Create Clinical Trial</Text>
+    <ScrollView contentContainerStyle={tw`p-4 bg-white`}>
+      <Text style={tw`text-2xl font-bold text-center mb-4`}>
+        Create Clinical Trial
+      </Text>
+
       {(
         [
           { key: "trial_name", label: "Trial Name" },
@@ -81,7 +84,7 @@ const TrialForm = () => {
         <TextInput
           key={field.key}
           placeholder={field.label}
-          style={styles.input}
+          style={tw`border border-gray-300 rounded px-3 py-2 mb-3`}
           value={
             typeof formData[field.key] === "boolean"
               ? String(formData[field.key])
@@ -91,23 +94,25 @@ const TrialForm = () => {
         />
       ))}
 
-      <View style={styles.switchContainer}>
-        <Text>Requires Muscle Weakness</Text>
+      <View style={tw`flex-row items-center justify-between mb-3`}>
+        <Text style={tw`text-base`}>Requires Muscle Weakness</Text>
         <Switch
           value={formData.requires_muscle_weakness}
           onValueChange={(val) => handleChange("requires_muscle_weakness", val)}
         />
       </View>
 
-      <View style={styles.switchContainer}>
-        <Text>Requires Twitching</Text>
+      <View style={tw`flex-row items-center justify-between mb-4`}>
+        <Text style={tw`text-base`}>Requires Twitching</Text>
         <Switch
           value={formData.requires_twitching}
           onValueChange={(val) => handleChange("requires_twitching", val)}
         />
       </View>
 
-      <Button title="Submit Trial" onPress={handleSubmit} />
+      <View style={tw`mb-6`}>
+        <Button title="Submit Trial" onPress={handleSubmit} />
+      </View>
     </ScrollView>
   );
 };

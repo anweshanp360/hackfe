@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, FlatList, TouchableOpacity, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import axios from 'axios';
-import styles from './TrialListScreen.styles';
+import tw from 'twrnc';
 
 const API_URL = 'http://localhost:3000/api/trials';
 
@@ -45,36 +52,37 @@ const TrialTable = () => {
   };
 
   const renderItem = ({ item }: { item: any }) => (
-    <View style={styles.row}>
-      <View style={styles.cell}><Text>{item.trial_name}</Text></View>
-      <View style={styles.cell}><Text>{item.sponsor}</Text></View>
-      <View style={styles.cell}><Text>{item.status}</Text></View>
-      <View style={styles.actions}>
+    <View style={tw`flex-row border-b border-gray-300 py-2 px-2 items-center`}>
+      <View style={tw`flex-1`}><Text>{item.trial_name}</Text></View>
+      <View style={tw`flex-1`}><Text>{item.sponsor}</Text></View>
+      <View style={tw`flex-1`}><Text>{item.status}</Text></View>
+      <View style={tw`flex-row`}>
         <TouchableOpacity
-          style={styles.deleteButton}
+          style={tw`bg-red-500 px-3 py-1 rounded`}
           onPress={() => handleDelete(item.id)}
         >
-          <Text style={styles.buttonText}>Delete</Text>
+          <Text style={tw`text-white font-semibold`}>Delete</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Trial Data</Text>
+    <View style={tw`p-4 bg-white flex-1`}>
+      <Text style={tw`text-xl font-bold mb-4 text-center`}>Trial Data</Text>
+
       <TextInput
         placeholder="Search Trials..."
         value={search}
         onChangeText={handleSearch}
-        style={styles.searchInput}
+        style={tw`border border-gray-300 rounded p-2 mb-4`}
       />
 
       <FlatList
         data={filteredTrials}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
-        ListEmptyComponent={<Text>No trials found</Text>}
+        ListEmptyComponent={<Text style={tw`text-center text-gray-500`}>No trials found</Text>}
       />
     </View>
   );
