@@ -80,7 +80,7 @@ const TrialTable = () => {
 
       <FlatList
         data={filteredTrials}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item, index) => item?.id?.toString() ?? index.toString()}
         renderItem={renderItem}
         ListEmptyComponent={<Text style={tw`text-center text-gray-500`}>No trials found</Text>}
       />

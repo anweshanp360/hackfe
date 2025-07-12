@@ -1,9 +1,14 @@
 import React from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { IoSearchOutline, IoNotificationsOutline, IoPersonCircleOutline } from 'react-icons/io5';
-import tw from 'twrnc';
+import tw from 'twrnc'; // Tailwind CSS for React Native
+interface HeaderProps {
+  title: string;
+}
 
-const Header = () => {
+
+
+const Header: React.FC<HeaderProps>  = () => {
   return (
     <View style={tw`flex-row items-center justify-between bg-white p-4 shadow`}>
       
