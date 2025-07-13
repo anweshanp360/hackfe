@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Linking } from 'react-native';
 import { usePathname, useRouter } from 'expo-router';
 import tw from 'twrnc';
 
@@ -22,7 +22,7 @@ const Header: React.FC = () => {
         <Text
           style={tw.style(
             'text-base font-semibold mx-2',
-            isActive ? 'text-blue-700 underline' : 'text-gray-600'
+            isActive ? 'text-purple-700 bold' : 'text-gray-600'
           )}
         >
           {title}
@@ -44,7 +44,7 @@ const Header: React.FC = () => {
             style={tw`w-8 h-8 mr-2`}
             resizeMode="contain"
           />
-          <Text style={tw`text-lg font-bold text-gray-800`}>Trial Match</Text>
+          <Text style={tw`text-lg font-bold text-purple-700`}>Trial Match by P360 Solutions</Text>
         </TouchableOpacity>
 
         {/* Center: Navigation Tabs */}
@@ -53,6 +53,15 @@ const Header: React.FC = () => {
             <NavButton key={tab.path} title={tab.title} path={tab.path} />
           ))}
         </View>
+
+        {/* Right: Contact Us */}
+        <TouchableOpacity
+          onPress={() => Linking.openURL('https://www.p360.com/')}
+        >
+          <Text style={tw`text-base font-semibold text-purple-700 ml-4`}>
+            Contact Us
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
