@@ -1,80 +1,81 @@
-// MatchedPatientsTable.js
-import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, ActivityIndicator, SafeAreaView } from 'react-native';
-import axios from 'axios';
-import tw from 'twrnc';
+import React, { useEffect, useState } from "react";
+import { View, Text, ScrollView, ActivityIndicator, Dimensions } from "react-native";
+import axios from "axios";
+import tw from "twrnc";
 
-type Patient = {
-  patientId: string;
-  patientName: string;
-  trialNames: string;
-  matchingFactors: string;
-  matchedDate: string;
+type TrialMatch = {
+  id: number;
+  name: string;
+  age: number;
+  gender: string;
+  trialName: string;
+  matchedFields: string[];
+  resultStatus: string;
 };
 
-const MatchedPatientsTable = () => {
-  const [patients, setPatients] = useState<Patient[]>([]);
+const TrialMatchTable = () => {
+  const [trialMatches, setTrialMatches] = useState<TrialMatch[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchMatchedPatients = async () => {
+  const fetchTrialMatches = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/match-trials'); // Update to your API
-      setPatients(response.data);
+      const response = await axios.get("http://localhost:3000/api/matched-patients");
+      setTrialMatches(response.data);
     } catch (error) {
-      console.error('Error fetching matched patients:', error);
+      console.error("Failed to fetch trial matches:", error);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchMatchedPatients();
+    fetchTrialMatches();
   }, []);
 
   if (loading) {
     return (
-      <SafeAreaView style={tw`flex-1 items-center justify-center bg-white`}>
+      <View style={tw`flex-1 justify-center items-center`}>
         <ActivityIndicator size="large" color="#4B5563" />
-      </SafeAreaView>
+        <Text style={tw`mt-4 text-base text-gray-700`}>Loading...</Text>
+      </View>
     );
   }
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-white`}>
-      <ScrollView>
-        <View style={tw`flex-1 px-4 py-4`}>
-          {/* Table Header */}
-          <View style={tw`flex-row bg-purple-700 p-2 rounded-t-lg`}>
-            <Text style={tw`text-white flex-1 font-bold text-xs`}>Patient ID</Text>
-            <Text style={tw`text-white flex-2 font-bold text-xs`}>Name</Text>
-            <Text style={tw`text-white flex-3 font-bold text-xs`}>Trial Names</Text>
-            <Text style={tw`text-white flex-3 font-bold text-xs`}>Matching Factors</Text>
-            <Text style={tw`text-white flex-2 font-bold text-xs`}>Matched Date</Text>
-          </View>
-
-          {/* Table Rows */}
-          {patients.map((patient, index) => (
-            <View
-              key={index}
-              style={tw`flex-row p-2 ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
-            >
-              <Text style={tw`flex-1 text-gray-800 text-xs`}>{patient.patientId}</Text>
-              <Text style={tw`flex-2 text-gray-800 text-xs`}>{patient.patientName}</Text>
-              <Text style={tw`flex-3 text-gray-800 text-xs`} numberOfLines={2}>
-                {patient.trialNames}
-              </Text>
-              <Text style={tw`flex-3 text-gray-800 text-xs`} numberOfLines={2}>
-                {patient.matchingFactors}
-              </Text>
-              <Text style={tw`flex-2 text-gray-800 text-xs`}>
-                {new Date(patient.matchedDate).toLocaleDateString()}
-              </Text>
+    <View style={tw`flex-1 bg-white`}>
+      <ScrollView horizontal contentContainerStyle={{ flexGrow: 1 }}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <View style={[tw`flex-1`, { minHeight: Dimensions.get("window").height }]}>
+            {/* Table Header */}
+            <View style={tw`flex-row bg-purple-700 p-2`}>
+              {["ID", "Name", "Age", "Gender", "Trial Name", "Matched Fields", "Result"].map((header, index) => (
+                <Text key={index} style={tw`text-white font-bold px-2 w-40`}>
+                  {header}
+                </Text>
+              ))}
             </View>
-          ))}
-        </View>
+
+            {/* Table Body */}
+            {trialMatches.map((item) => (
+              <View key={item.id} style={tw`flex-row border-b border-gray-300 p-2`}>
+                <Text style={tw`px-2 w-40`}>{item.id}</Text>
+                <Text style={tw`px-2 w-40`}>{item.name}</Text>
+                <Text style={tw`px-2 w-40`}>{item.age}</Text>
+                <Text style={tw`px-2 w-40`}>{item.gender}</Text>
+                <Text style={tw`px-2 w-40`}>{item.trialName}</Text>
+                <Text style={tw`px-2 w-40`}>
+                  {Array.isArray(item.matchedFields) ? item.matchedFields.join(", ") : ""}
+                </Text>
+                <Text style={tw`px-2 w-40 text-green-700 font-semibold`}>
+                  {item.resultStatus}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
-export default MatchedPatientsTable;
+export default TrialMatchTable;

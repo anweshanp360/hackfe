@@ -27,7 +27,7 @@ const LandingPage = () => {
     <View style={tw`flex-1 bg-white`}>
       <Header />
       <Animatable.View animation="fadeInDown" duration={1000} style={tw`items-center mt-10`}>
-        <Text style={tw`text-3xl font-bold text-[#734BD1]`}>Welcome to MedTrials</Text>
+        <Text style={tw`text-3xl font-bold text-[#734BD1]`}>Welcome to TrialMatch</Text>
         <Text style={tw`text-base text-gray-600 mt-2 px-4 text-center`}>
           Explore cutting-edge clinical trials near you and be a part of medical innovation.
         </Text>
