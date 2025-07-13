@@ -251,12 +251,12 @@ const getResponse = await axios.post(
         {
           key: "biomarker_status",
           label: "Biomarker Status",
-          options: ["Positive", "Negative", "Unknown"],
+          options: ["Positive", "Negative", "N/A"],
         },
         {
           key: "EMG_result",
           label: "EMG Result",
-          options: ["Normal", "Abnormal", "Pending"],
+          options: ["Normal", "Abnormal", "Not Done"],
         },
       ].map(({ key, label, options }) => (
         <View
@@ -289,7 +289,7 @@ const getResponse = await axios.post(
       {pythonResult && (
         <View style={tw`p-4 bg-purple-100 border border-purple-300 rounded`}>
           <Text style={tw`text-lg font-semibold text-purple-700 mb-2`}>
-            ML Logic Output
+            Trial Match Result
           </Text>
           <Text style={tw`text-base text-gray-800`}>{pythonResult}</Text>
         </View>

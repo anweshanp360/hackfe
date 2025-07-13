@@ -153,7 +153,7 @@ const handleSubmit = async () => {
 
         {/* Minimum Symptom Duration */}
         <View style={tw`mb-4`}>
-          <Text style={tw`text-base text-gray-700 mb-2`}>Minimum Symptom Duration (months, optional):</Text>
+          <Text style={tw`text-base text-gray-700 mb-2`}>Minimum Symptom Duration (days, optional):</Text>
           <TextInput
             style={tw`border border-gray-300 rounded-md p-3 text-base bg-white`}
             placeholder="e.g., 6"
